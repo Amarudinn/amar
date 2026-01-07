@@ -17,6 +17,27 @@
   backdrop-filter: blur(8px);
 }
 
+.langToggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+  border: 1px solid #334155;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.langToggle:hover {
+  border-color: #a78bfa;
+  color: #a78bfa;
+}
+
 /* Hero */
 .hero {
   text-align: center;
@@ -30,29 +51,44 @@
   margin: 0 auto 1.5rem;
   border-radius: 50%;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea, #764ba2);
   padding: 4px;
+  position: relative;
+  background: linear-gradient(135deg, #667eea, #a78bfa, #667eea);
+  background-size: 200% 200%;
+  animation: borderGlow 1s ease infinite;
+}
+
+@keyframes borderGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .avatar img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #1e293b;
+  object-fit: cover;
 }
 
 .name {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 600;
   color: #f1f5f9;
   margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
 }
 
 .nickname {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: #94a3b8;
   margin-bottom: 0.5rem;
-  font-style: italic;
 }
 
 .role {
@@ -193,12 +229,10 @@
   font-weight: 500;
   border: 1px solid #334155;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .skill:hover {
-  background: #a78bfa;
-  color: #0f172a;
-  border-color: #a78bfa;
   transform: translateY(-2px);
 }
 
@@ -249,14 +283,14 @@
 }
 
 .badge {
-  background: linear-gradient(135deg, #f59e0b, #eab308);
-  color: #0f172a;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 0.25rem 0.6rem;
+  background: linear-gradient(135deg, #667eea, #a78bfa);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
   border-radius: 100px;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 
 .project p {
@@ -315,5 +349,34 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .name {
+    font-size: 1.4rem;
+  }
+  
+  .nickname {
+    font-size: 0.9rem;
+  }
+  
+  .container {
+    padding: 3rem 1.5rem;
+  }
+  
+  .project h3 {
+    font-size: 0.9rem;
+  }
+  
+  .badge {
+    font-size: 0.55rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .project p {
+    font-size: 0.8rem;
   }
 }

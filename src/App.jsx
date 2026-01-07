@@ -2,7 +2,42 @@ import { useState } from 'react';
 import styles from './App.module.css';
 
 function App() {
+  const getInitialLang = () => {
+    const browserLang = navigator.language || navigator.userLanguage;
+    return browserLang.startsWith('id') ? 'ID' : 'EN';
+  };
+
   const [showCurrent, setShowCurrent] = useState(true);
+  const [lang, setLang] = useState(getInitialLang);
+
+  const t = {
+    ID: {
+      roles: 'Peran',
+      current: 'Sekarang',
+      previous: 'Sebelumnya',
+      skills: 'Keahlian',
+      projects: 'Proyek',
+      contact: 'Hubungi Saya',
+      contactText: 'Tertarik bekerja sama? Ayo terhubung!',
+      contactBtn: 'Sapa Saya',
+      bio: 'Membangun pengalaman web yang indah dengan kode yang bersih.',
+      updated: 'Diperbarui',
+    },
+    EN: {
+      roles: 'Roles',
+      current: 'Current',
+      previous: 'Previous',
+      skills: 'Skills',
+      projects: 'Projects',
+      contact: 'Get in Touch',
+      contactText: 'Interested in working together? Let\'s connect!',
+      contactBtn: 'Say Hello',
+      bio: 'Building beautiful web experiences with clean code.',
+      updated: 'Updated',
+    },
+  };
+
+  const text = t[lang];
 
   const currentRoles = [
     { role: 'Ambassador', org: 'Nexus' },
@@ -24,12 +59,18 @@ function App() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.lastUpdated}>Updated: {buildTime}</div>
+      <div className={styles.lastUpdated}>{text.updated}: {buildTime}</div>
+      <button 
+        className={styles.langToggle} 
+        onClick={() => setLang(lang === 'ID' ? 'EN' : 'ID')}
+      >
+        {lang}
+      </button>
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.avatar}>
           <img 
-            src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" 
+            src="/amar.jpg" 
             alt="Avatar"
           />
         </div>
@@ -37,7 +78,7 @@ function App() {
         <p className={styles.nickname}>(Amar)</p>
         <p className={styles.role}>Vibes Coder</p>
         <p className={styles.bio}>
-          Building beautiful web experiences with clean code.
+          {text.bio}
         </p>
         <div className={styles.links}>
           <a href="https://github.com" target="_blank" rel="noreferrer">
@@ -67,19 +108,19 @@ function App() {
       {/* Roles */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <h2>Roles</h2>
+          <h2>{text.roles}</h2>
           <div className={styles.toggle}>
             <button 
               className={`${styles.toggleBtn} ${showCurrent ? styles.active : ''}`}
               onClick={() => setShowCurrent(true)}
             >
-              Current
+              {text.current}
             </button>
             <button 
               className={`${styles.toggleBtn} ${!showCurrent ? styles.active : ''}`}
               onClick={() => setShowCurrent(false)}
             >
-              Previous
+              {text.previous}
             </button>
           </div>
         </div>
@@ -95,7 +136,7 @@ function App() {
 
       {/* Skills */}
       <section className={styles.section}>
-        <h2>Skills</h2>
+        <h2>{text.skills}</h2>
         <div className={styles.skills}>
           {[
             { name: 'JavaScript', icon: <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h256v256H0V0z" fill="#F7DF1E"/><path d="M67.312 213.932l19.59-11.856c3.78 6.701 7.218 12.371 15.465 12.371 7.905 0 12.89-3.092 12.89-15.12v-81.798h24.057v82.138c0 24.917-14.606 36.259-35.916 36.259-19.245 0-30.416-9.967-36.087-21.996M152.381 211.354l19.588-11.341c5.157 8.421 11.859 14.607 23.715 14.607 9.969 0 16.325-4.984 16.325-11.858 0-8.248-6.53-11.17-17.528-15.98l-6.013-2.58c-17.357-7.387-28.87-16.667-28.87-36.257 0-18.044 13.747-31.792 35.228-31.792 15.294 0 26.292 5.328 34.196 19.247L210.29 147.43c-4.125-7.389-8.591-10.31-15.465-10.31-7.046 0-11.514 4.468-11.514 10.31 0 7.217 4.468 10.14 14.778 14.608l6.014 2.577c20.45 8.765 31.963 17.7 31.963 37.804 0 21.654-17.012 33.51-39.867 33.51-22.339 0-36.774-10.654-43.819-24.574"/></svg> },
@@ -115,12 +156,12 @@ function App() {
 
       {/* Projects */}
       <section className={styles.section}>
-        <h2>Projects</h2>
+        <h2>{text.projects}</h2>
         <div className={styles.projects}>
           {[
-            { title: 'E-Commerce App', desc: 'Full-stack shopping platform', badge: '1st Membit Half-Hackathon' },
-            { title: 'Task Manager', desc: 'Collaborative productivity tool', badge: null },
-            { title: 'Weather App', desc: 'Beautiful weather dashboard', badge: null },
+            { title: 'RTA', desc: 'RTA (Real-Time Tweet Automation)', badge: '1st Membit Half-Hackathon' },
+            { title: 'To-do List', desc: 'Catatan harian', badge: null },
+            { title: 'SocialFi', desc: 'X (Twitter) versi on-chain', badge: null },
           ].map(project => (
             <div key={project.title} className={styles.project}>
               <div className={styles.projectHeader}>
@@ -135,17 +176,17 @@ function App() {
 
       {/* Contact */}
       <section className={styles.section}>
-        <h2>Get in Touch</h2>
+        <h2>{text.contact}</h2>
         <p className={styles.contactText}>
-          Interested in working together? Let's connect!
+          {text.contactText}
         </p>
         <a href="mailto:hello@example.com" className={styles.contactBtn}>
-          Say Hello
+          {text.contactBtn}
         </a>
       </section>
 
       <footer className={styles.footer}>
-        © 2026 John Doe
+        © 2026 Amar
       </footer>
     </div>
   );
